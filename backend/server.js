@@ -1,10 +1,11 @@
 const cors = require('cors')
 const express = require('express');
-const mongoose = require('mongoose');
+const dbConnection = require('./DB/dbConnection');
 
 const app = express();
 app.use(cors());
-
+app.use(express.json());
+dbConnection();
 app.get("/getProducts" , (req , res)=>{
     res.json({'title' : "its working babe"});
 })
