@@ -12,13 +12,13 @@ export class CrudService {
 
   constructor(private http : HttpClient) { }
 
-  // getAll() : Observable<any> {
-  //   return this.http.get(`${this.backendAdress}/getProducts`)
+  // testObs() : Observable<any>{
+  //   return this.http.get(`${this.backendAdress}/test`)
   // }
 
-  testObs() : Observable<any>{
-    return this.http.get(`${this.backendAdress}/test`)
-  }
+  // createUser(email : string , password : string ) : Observable<any>{
+  //   return this.http.post(`${this.backendAdress}/creatClient`, { email, password });
+  // }
   
 }
  

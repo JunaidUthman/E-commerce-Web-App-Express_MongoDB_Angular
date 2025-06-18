@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Form, Validators  } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
-import { CrudService } from '../crud.service';
+import { ClientManagerServiceService } from '../client-manager-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule , CommonModule , RouterModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
@@ -15,9 +17,11 @@ export class SignUpComponent{
   password: string = '';
   form :FormGroup
   testO : string = 'testO';
-  service : CrudService;
+  service : ClientManagerServiceService;
+  showPopup: boolean = false;
+  popupMessage: string = '';
 
-  constructor(private fb : FormBuilder , service : CrudService){
+  constructor(private fb : FormBuilder , service : ClientManagerServiceService){
     this.service = service;
     this.form = this.fb.group({
       email : ['' , Validators.required],
@@ -25,17 +29,29 @@ export class SignUpComponent{
     })
   }
 
-  test(){
+  createClient(){
     
     this.email = this.form.get('email')?.value;
     this.password = this.form.get('password')?.value;
 
-    console.log(this.email);
+    this.service.createUser(this.email , this.password).subscribe({
+      next: (response) => {
+        if(response.alreadyExists){
+          this.popupMessage = 'The email you tried to register with already exists.';
+          this.showPopup = true;
+          return;
+        }
+        this.showPopup = false;
+        console.log('User created successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error creating user:', error);
+      }
+    });
   }
 
-  testObs(){
-    this.service.testObs().subscribe((data) => {
-      console.log(data);
-    })
+  closePopup() {
+    this.showPopup = false;
   }
+
 }

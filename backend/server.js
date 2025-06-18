@@ -1,13 +1,17 @@
 const cors = require('cors')
 const express = require('express');
 const dbConnection = require('./DB/dbConnection');
+const clientRoutes = require('./routes/clientRoutes');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 dbConnection();
-app.get("/getProducts" , (req , res)=>{
-    res.json({'title' : "its working babe"});
+
+app.use('/', clientRoutes);
+
+app.get('/test', (req, res) => {
+    res.json({ message: 'Hello from the backend!' });
 })
 
 app.listen(3000 , ()=>{

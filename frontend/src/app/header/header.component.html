@@ -17,7 +17,10 @@
   <div class="space-x-6">
     <a routerLink="/Home" class="text-gray-700 hover:text-green-600 transition font-medium">Home</a>
     <a routerLink="/Card" class="text-gray-700 hover:text-green-600 transition font-medium">Card</a>
-    <a routerLink="/Login" class="text-gray-700 hover:text-green-600 transition font-medium">Login</a>
+    <a *ngIf="!isLoggedIn" routerLink="/Login" class="text-gray-700 hover:text-green-600 transition font-medium">Login</a>
+    <a *ngIf="isLoggedIn" routerLink="/Profile" class="text-gray-700 hover:text-green-600 transition font-medium">Profile</a>
     <a routerLink="/Help" class="text-gray-700 hover:text-green-600 transition font-medium">Help</a>
+    <button *ngIf="isLoggedIn" (click)="logOut()" class="text-gray-700 hover:text-red-600 transition font-medium">Logout</button>
+
   </div>
 </header>

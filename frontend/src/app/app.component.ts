@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {HeaderComponent} from './header/header.component';
 import { ProductsComponent } from './products/products.component';
 import { FooterComponent } from './footer/footer.component';
 import {FormsModule} from '@angular/forms';
+
+import { CrudService } from './crud.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +14,10 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  
+  constructor(private crudService: CrudService) {}
+
   title = 'frontend';
+
+
+  
 }
