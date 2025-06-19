@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {ClientManagerServiceService} from '../client-manager-service.service';
+import {ClientManagerServiceService} from '../services/clientManagerService/client-manager-service.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 

@@ -5,7 +5,7 @@ import { ProductsComponent } from './products/products.component';
 import { FooterComponent } from './footer/footer.component';
 import {FormsModule} from '@angular/forms';
 
-import { CrudService } from './crud.service';
+import { CrudService } from './services/CrudService/crud.service';
 
 @Component({
   selector: 'app-root',

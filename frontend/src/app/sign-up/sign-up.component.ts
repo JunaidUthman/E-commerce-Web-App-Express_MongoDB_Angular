@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Form, Validators  } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
-import { ClientManagerServiceService } from '../client-manager-service.service';
+import { ClientManagerServiceService } from '../services/clientManagerService/client-manager-service.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
