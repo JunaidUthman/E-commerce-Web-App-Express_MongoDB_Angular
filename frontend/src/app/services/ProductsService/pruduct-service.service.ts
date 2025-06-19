@@ -13,4 +13,7 @@ export class PruductServiceService {
   getTopProducts(): Observable<any[]> {
     return this.http.get<any[]>(`${this.backendUrl}/top-products`);
   }
+  getProductWithDetails(id: string): Observable<any> {
+    return this.http.get<any>(`${this.backendUrl}/product-with-details/${id}`);
+  }
 }

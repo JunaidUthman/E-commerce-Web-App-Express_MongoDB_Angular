@@ -1,0 +1,138 @@
+<div  class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-br from-black/60 via-gray-900/40 to-black/60 backdrop-blur-md animate-fadeInBackdrop">
+        
+        <!-- Main Popup Container -->
+        <div class="relative glass-morphism rounded-3xl product-shadow hover-lift flex flex-col lg:flex-row max-w-4xl max-h-[90vh] w-full mx-4 overflow-hidden animate-fadeInScale">
+            
+            <!-- Close Button -->
+            <button (click)="onClose()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 group">
+                <svg class="w-5 h-5 text-gray-600 group-hover:text-gray-800 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <!-- Product Image Section -->
+            <div class="lg:w-1/2 w-full relative bg-gradient-to-br from-slate-50 via-white to-slate-100 p-6 flex items-center justify-center min-h-[250px] lg:min-h-[400px]">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50"></div>
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+                    <img [src]="product?.image"
+                         alt="Premium White T-Shirt"
+                         class="relative rounded-3xl shadow-2xl w-56 h-56 object-cover border border-white/50 group-hover:scale-105 transition-transform duration-500">
+                    
+                    <!-- Premium Badge -->
+                    <div class="absolute -top-3 -right-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                        PREMIUM
+                    </div>
+                    
+                    <!-- Discount Badge -->
+                    <div class="absolute -bottom-3 -left-3 bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        33% OFF
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Details Section -->
+            <div class="lg:w-1/2 w-full p-6 flex flex-col justify-between bg-gradient-to-br from-white via-slate-50 to-gray-50 overflow-y-auto">
+                
+                <!-- Header Info -->
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-2 py-1 rounded-md text-xs font-semibold">BESTSELLER</span>
+                            <span class="text-gray-500 text-sm">SKU: TS-001</span>
+                        </div>
+                        <h2 class="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
+                            {{ product?.name }}
+                        </h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            {{ product?.description }}
+                        </p>
+                    </div>
+                    
+                    <!-- Pricing -->
+                    <div class="flex items-baseline space-x-3">
+                        <span class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">$19.99</span>
+                        <span class="text-xl text-gray-400 line-through">{{ product?.price }}</span>
+                        <span class="bg-red-100 text-red-700 px-2 py-1 rounded-md text-sm font-semibold">Save $10</span>
+                    </div>
+                    
+                    <!-- Stats Row -->
+                    <div class="flex flex-wrap gap-3">
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 text-green-700 px-4 py-2 rounded-xl text-sm font-semibold flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <span>In Stock: 100</span>
+                        </div>
+                        <div class="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 text-yellow-700 px-4 py-2 rounded-xl text-sm font-semibold flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                            <span>4.8/5 (1,240)</span>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-50 to-sky-50 border border-blue-200 text-blue-700 px-4 py-2 rounded-xl text-sm font-semibold">
+                            320+ Sold
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Options -->
+                <div class="space-y-4 my-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Color</label>
+                            <select class="w-full rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm">
+                                  <option *ngFor="let detail of product?.productDetails" [value]="detail.color">{{ detail.color }}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Size</label>
+                            <select class="w-full rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm">
+                                  <option *ngFor="let detail of product?.productDetails" [value]="detail.size">{{ detail.size }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity</label>
+                        <div class="flex items-center space-x-3">
+                            <input type="number" min="1" max="10" value="1" class="w-20 text-center rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm font-semibold">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex space-x-4">
+                    <button class="flex-1 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-semibold py-4 px-6 rounded-xl transition-all duration-200 border border-gray-300 hover:border-gray-400">
+                        Add to Wishlist
+                    </button>
+                    <button class="flex-2 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 group">
+                        <svg class="w-5 h-5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5m6 0L19 13"></path>
+                        </svg>
+                        <span>Add to Cart</span>
+                    </button>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="flex items-center justify-center space-x-6 mt-6 pt-6 border-t border-gray-200">
+                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                        <span>Secure Checkout</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                        </svg>
+                        <span>Free Returns</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                        <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <span>Fast Shipping</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,15 +1,19 @@
 import { Component } from '@angular/core';
 import { PruductServiceService } from '../services/ProductsService/pruduct-service.service';
 import { CommonModule } from '@angular/common';
+import { AddToCardComponent } from '../add-to-card/add-to-card.component';
+
 
 @Component({
   selector: 'app-best-seller',
-  imports: [CommonModule],
+  imports: [CommonModule , AddToCardComponent],
   templateUrl: './best-seller.component.html',
   styleUrl: './best-seller.component.css'
 })
 export class BestSellerComponent {
+  productId : string = '';
   topProducts: any[] = [];
+  showAddToCardPopup = false;
 
   constructor(private productService: PruductServiceService) {}
 
@@ -23,4 +27,25 @@ export class BestSellerComponent {
       }
     });
   }
+
+  // best-seller.component.ts
+selectedProduct: any = null;
+
+addToCard(productId: string) {
+  this.productService.getProductWithDetails(productId).subscribe({
+    next: (product) => {
+      this.selectedProduct = product;
+      this.showAddToCardPopup = true;
+    },
+    error: (err) => {
+      console.error('Failed to fetch product details:', err);
+    }
+  });
+}
+
+closeAddToCardPopup() {
+  this.showAddToCardPopup = false;
+  this.selectedProduct = null;
+}
+  
 }
