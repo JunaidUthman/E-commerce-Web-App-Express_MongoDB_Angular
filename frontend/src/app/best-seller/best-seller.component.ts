@@ -15,6 +15,9 @@ export class BestSellerComponent {
   topProducts: any[] = [];
   showAddToCardPopup = false;
 
+  showSuccessAlert = false;
+  successMessage = '';
+
   constructor(private productService: PruductServiceService) {}
 
   ngOnInit() {
@@ -46,6 +49,13 @@ addToCard(productId: string) {
 closeAddToCardPopup() {
   this.showAddToCardPopup = false;
   this.selectedProduct = null;
+}
+closeAlertPopup(){
+  this.showSuccessAlert = false;
+}
+
+OpenAlertPopup(){
+  this.showSuccessAlert = true;
 }
   
 }

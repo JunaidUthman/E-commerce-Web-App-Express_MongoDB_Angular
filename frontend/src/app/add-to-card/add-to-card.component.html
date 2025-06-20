@@ -1,10 +1,13 @@
-<div  class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-br from-black/60 via-gray-900/40 to-black/60 backdrop-blur-md animate-fadeInBackdrop">
+
+
+<form (ngSubmit)="onAddToCard()">
+    <div  class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-br from-black/60 via-gray-900/40 to-black/60 backdrop-blur-md animate-fadeInBackdrop">
         
         <!-- Main Popup Container -->
         <div class="relative glass-morphism rounded-3xl product-shadow hover-lift flex flex-col lg:flex-row max-w-4xl max-h-[90vh] w-full mx-4 overflow-hidden animate-fadeInScale">
             
             <!-- Close Button -->
-            <button (click)="onClose()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 group">
+            <button (click)="onClose()" type="button" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 group">
                 <svg class="w-5 h-5 text-gray-600 group-hover:text-gray-800 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -17,7 +20,7 @@
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
                     <img [src]="product?.image"
                          alt="Premium White T-Shirt"
-                         class="relative rounded-3xl shadow-2xl w-56 h-56 object-cover border border-white/50 group-hover:scale-105 transition-transform duration-500">
+                         class="relative rounded-3xl shadow-2xl w-100 h-120 object-cover border border-white/50 group-hover:scale-105 transition-transform duration-500">
                     
                     <!-- Premium Badge -->
                     <div class="absolute -top-3 -right-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
@@ -60,7 +63,7 @@
                     <div class="flex flex-wrap gap-3">
                         <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 text-green-700 px-4 py-2 rounded-xl text-sm font-semibold flex items-center space-x-2">
                             <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                            <span>In Stock: 100</span>
+                            <span>{{product.count}}</span>
                         </div>
                         <div class="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 text-yellow-700 px-4 py-2 rounded-xl text-sm font-semibold flex items-center space-x-2">
                             <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
@@ -69,7 +72,7 @@
                             <span>4.8/5 (1,240)</span>
                         </div>
                         <div class="bg-gradient-to-r from-blue-50 to-sky-50 border border-blue-200 text-blue-700 px-4 py-2 rounded-xl text-sm font-semibold">
-                            320+ Sold
+                            {{product.salesCount}}+ Sold
                         </div>
                     </div>
                 </div>
@@ -79,22 +82,22 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Color</label>
-                            <select class="w-full rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm">
-                                  <option *ngFor="let detail of product?.productDetails" [value]="detail.color">{{ detail.color }}</option>
+                            <select name="color" [(ngModel)]="selectedColor" class="w-full rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm">
+                                <option  *ngFor="let detail of product?.productDetails"  name="color">{{ detail.color }}</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Size</label>
-                            <select class="w-full rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm">
-                                  <option *ngFor="let detail of product?.productDetails" [value]="detail.size">{{ detail.size }}</option>
+                            <select name="size" [(ngModel)]="selectedSize" class="w-full rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm">
+                                <option *ngFor="let detail of product?.productDetails" >{{ detail.size }}</option>
                             </select>
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2"  >Quantity</label>
                         <div class="flex items-center space-x-3">
-                            <input type="number" min="1" max="10" value="1" class="w-20 text-center rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm font-semibold">
+                            <input name="quantity" [(ngModel)]="quantity" type="number" min="1" max="10" value="1" class="w-20 text-center rounded-xl border-2 border-gray-200 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm font-semibold">
                         </div>
                     </div>
                 </div>
@@ -108,7 +111,7 @@
                         <svg class="w-5 h-5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5m6 0L19 13"></path>
                         </svg>
-                        <span>Add to Cart</span>
+                        <span>Add to Card</span>
                     </button>
                 </div>
                 
@@ -136,3 +139,5 @@
             </div>
         </div>
     </div>
+
+</form>

@@ -24,4 +24,6 @@ router.get('/product-with-details/:id', async (req, res) => {
   }
 });
 
+
+
 module.exports = router;
