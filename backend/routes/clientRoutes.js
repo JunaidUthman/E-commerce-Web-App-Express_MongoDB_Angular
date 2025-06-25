@@ -69,31 +69,10 @@ router.get('/verify-email', async (req, res) => {
     }
 });
 
-router.post('/creatClient', async (req, res) => {
-    const {email, password} = req.body;
-
-    try {
-        // Check if user already exists
-        const existingClient = await Client.findOne({ email });
-        if (existingClient) {
-            return res.status(400).json({ message: 'Client already exists in the database.' });
-        }
-
-        // Create and save new client
-        const newClient = new Client({
-            email,
-            password
-        });
-
-        await newClient.save();
-        res.json({ message: 'User created successfully.', email });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
-    }
-});
 
 router.post('/logClient', async (req, res) => {
     const { email, password } = req.body;
+    var isAdmin = false;
     try {
         const client = await Client.findOne({ email });
         if (!client) {
@@ -105,13 +84,18 @@ router.post('/logClient', async (req, res) => {
         if (!client.isVerified) {
             return res.json({ success: false, message: 'Please verify your email before logging in.' });
         }
+        if(client.role == 'admin') {
+            console.log('Admin login detected');
+            isAdmin = true;
+        }
+
         // Issue JWT
         const token = jwt.sign(
             { id: client._id, email: client.email, role: client.role },
             JWT_SECRET,
             { expiresIn: '1d' }
         );
-        res.json({ success: true, token, message: 'Login successful.' });
+        res.json({ success: true, token, message: 'Login successful.' , isAdmin});
     } catch (error) {
         res.status(500).json({ success: false, message: 'Server error', error: error.message });
     }

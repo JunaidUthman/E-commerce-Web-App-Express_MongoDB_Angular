@@ -5,8 +5,18 @@ const Produit = require('../models/produit');
 router.get('/top-products', async (req, res) => {
     console.log("Fetching top products");
   try {
-    const products = await Produit.find().sort({ salesCount: -1 }).limit(3);
+    const products = await Produit.find().sort({ salesCount: -1 }).limit(6);
     
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+router.get('/new-products', async (req, res) => {
+  console.log("Fetching new products");
+  try {
+    const products = await Produit.find().sort({ date: -1 }).limit(6);
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });

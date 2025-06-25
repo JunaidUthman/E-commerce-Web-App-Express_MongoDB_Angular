@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SignUpComponent } from '../sign-up/sign-up.component';
+import { SignUpComponent } from '../layouts/client/sign-up/sign-up.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {ClientManagerServiceService} from '../services/clientManagerService/client-manager-service.service';
@@ -24,6 +24,7 @@ export class LoginComponent {
   login(){
     this.clientManagerService.LogUser(this.email , this.password).subscribe({
       next: (response) => {
+        // console.log('Login response:', response);
         if (!response.success) {
           // Handle all error cases
           if (response.message === 'User not found.') {
@@ -37,9 +38,15 @@ export class LoginComponent {
           }
           this.showPopup = true;
         } else {
-          // Login successful: store token and redirect
-          localStorage.setItem('token', response.token);
-          this.router.navigate(['/Home']);
+          if(response.isAdmin ==  true) {
+            localStorage.setItem('token', response.token);
+            this.router.navigate(['/Admin/dashboard']);
+          }
+          else{
+            localStorage.setItem('token', response.token);
+            this.router.navigate(['/Home']);
+          }
+          
         }
       },
       error: (error) => {
@@ -48,6 +55,13 @@ export class LoginComponent {
         console.error('Error logging user:', error);
       }
     });
+  }
+
+  isLoggedIn(){
+    if(localStorage.getItem('token')) {
+      return true;
+    }
+    return false;
   }
   
   closePopup() {

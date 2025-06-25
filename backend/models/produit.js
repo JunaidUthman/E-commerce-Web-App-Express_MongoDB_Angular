@@ -11,8 +11,8 @@ const produitSchema = new mongoose.Schema({
   image: {type : String , required: true},
   salesCount: { type: Number, default: 0 },
   productDetails: [productDetails],
-  stock: { type: Number, default: 0 },
   sex : { type: String, enum: ['Homme', 'Femme', 'Unisexe'], default: 'Unisexe' },
+  date: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Produit', produitSchema);
